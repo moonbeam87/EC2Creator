@@ -72,7 +72,8 @@ public class Main extends Application {
 
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
-
+        String idName = "";
+        String secretKeyName = "";
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -84,8 +85,7 @@ public class Main extends Application {
 
 
         Button new_stage = new Button("Continue");
-        final String idName = userName.getText();
-        final String secretKeyName = pw.getText();
+
         new_stage.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
