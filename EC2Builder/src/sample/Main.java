@@ -19,27 +19,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-class NewStage {
 
-    NewStage(String id, String secretKey)
-    {
-        Stage subStage = new Stage();
-        subStage.setTitle("EC2 Builder for " + id);
-
-        FlowPane root = new FlowPane();
-        root.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(root, 300, 200);
-
-        root.getChildren().add(new Button("New Stage"));
-        subStage.setScene(scene);
-        subStage.show();
-    }
-}
 public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    Label idString = new Label("");
+    Label keyString = new Label("");
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("JavaFX Welcome");
@@ -55,43 +41,26 @@ public class Main extends Application {
         final Label userName = new Label("AWS ID:");
         grid.add(userName, 0, 1);
 
-        TextField userTextField = new TextField();
+        final TextField userTextField = new TextField();
         grid.add(userTextField, 1, 1);
 
         final Label pw = new Label("Secret Key:");
         grid.add(pw, 0, 2);
 
-        PasswordField pwBox = new PasswordField();
+        final TextField pwBox = new TextField();
         grid.add(pwBox, 1, 2);
 
-        Button btn = new Button("Store Credentials");
-        HBox hbBtn = new HBox(10);
-        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 4);
 
-        final Text actiontarget = new Text();
-        grid.add(actiontarget, 1, 6);
-        String idName = "";
-        String secretKeyName = "";
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-                actiontarget.setFill(Color.FIREBRICK);
-                actiontarget.setText("Credentials Stored");
+        EventHandler<ActionEvent> IDEntered = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                idString.setText(userTextField.getText());
+                keyString.setText(pwBox.getText());
+                new Stage1(idString.getText(), keyString.getText());
             }
-        });
-
-
+        };
         Button new_stage = new Button("Continue");
-
-        new_stage.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-                new NewStage(idName, secretKeyName);}
-        });
+        new_stage.setOnAction(IDEntered);
         grid.add(new_stage, 0, 6);
 
 
